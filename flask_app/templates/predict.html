@@ -1,0 +1,23 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <center>
+      <h1>  PREDICTION RESULT  </h1>
+        입력하신 예측 일수는 {{day}}일 뒤입니다.<br><br>
+        <h3>적조발생 여부 : 
+        {% if data.pred_result == 0 %}
+        No
+        {% elif data.pred_result == 1 %}
+        Yes
+        {% endif %}
+        <br>
+        발생(미발생) 확률 : {{data.prob | round(2) }}% </h3>
+
+        <br><br>
+    <a href='/'>go back to home page</a>
+    </center>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<html>
+  <head>
+        <meta charset="UTF-8">
+        <title>HTML for python flask</title>
+  </head>
+
+  <body>
+    <center>
+        <h1> Redtide(Cochlodinium) Prediction </h1>
+        <h2> 오늘 날짜 : {{today}} </h2>
+        <h3> 3 ~ 10일 후의 적조를 예측합니다. <br>아래 빈칸에 3 ~ 10 사이로 입력해주세요. </h3>
+ 
+        <form action="/predict" method="post"> 
+          <!-- 정보가 전달되는 곳이 /post url -->
+            <p>예측하려는 일수 : <input type="number" name="input"></p>
+            <!-- input 입력태그에 name을 지정해 정보 전달받음 -->
+            <p><input type="submit" value="선택"></p>
+        </form>
+    </center>
+    <br> 
+    <h3>금일 기준 3 ~ 10일 후의 기상 및 해양예보 데이터</h3><br>
+    {% for table in df_predict %}
+        {{titles[loop.index]}}
+        {{ table|safe }}
+    {% endfor %}
+  </body>
+</html>
+
+{#
+  {%if data.day >= 3 and data.day <= 10 %}
+<h1>Day is between 3 and 10.</h1>
+
+{%else %}
+입력 범위를 벗어났습니다.
+
+{% endif %}
+  #}
