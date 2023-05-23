@@ -28,9 +28,13 @@ DB_PW = os.getenv("DB_PW")
 db_connection = create_engine(f'mysql+pymysql://{DB_ID}:{DB_PW}@localhost/pj3', echo=True)
 conn = db_connection.connect()
 
-# 저장되어 있는 data 가져오기
+# 저장되어 있는 DB data 가져오기
 df = pd.read_sql_table('dataset', con=conn)
 conn.close()
+
+# # DB 가 아닌 csv에서 data를 가져오고자 하는 경우
+# df = pd.read_csv("Data_3_oversampling.csv")
+
 
 # 특성, 타겟 분리
 target = 'YN'

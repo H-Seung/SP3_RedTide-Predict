@@ -1,4 +1,4 @@
-# 오픈 API 를 가져와 모델이 예측할 수 있는 형태로 가공
+# 오픈 API 를 이용해 예보 데이터를 가져와 모델이 예측할 수 있는 형태로 가공
 import os
 from dotenv import load_dotenv
 import pandas as pd
