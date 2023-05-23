@@ -1,12 +1,29 @@
+# 오픈 API 를 가져와 모델이 예측할 수 있는 형태로 가공
+import os
+from dotenv import load_dotenv
+import pandas as pd
 import requests
 import json
-from datetime import datetime
-import pandas as pd
+from datetime import datetime, timedelta
+from pytz import timezone
+
+# import os
+# parent_dir = os.path.abspath(os.path.join(os.getcwd(), os.pardir))
+# print(parent_dir) # 부모 디렉터리의 절대경로 얻기
+
+dotenv_path = os.path.abspath("../ENVRONS.env")
+load_dotenv(dotenv_path=dotenv_path)
+API_KEY = os.getenv("API_KEY")
 
 
-# api 데이터(날씨예보) 가져오기
-API_KEY = 'n7HGFdM5lxrVbJFvjkmt1+Uypx7GIUZEt2xJ0QTV5MMTm/r9h6WubvwOv+NMdpkv1yefq5hVvvr9oeyK3WxNNw=='
-today = datetime.now().strftime('%Y%m%d')+'0600'
+# 예보 조회날짜 설정
+t = datetime.now(timezone('Asia/Seoul'))
+print("t:",t)
+if t.hour < 7: # 7시 전이라면 1일 전 예보(예보는 6시에 게시되지만 여유있게 7로 설정)
+    today = (t-timedelta(days=1)).strftime('%Y%m%d')+'0600'
+else:
+    today = t.strftime('%Y%m%d')+'0600'
+print("조회날짜(금일):", today)
 
 ## 해상날씨정보 (파고) -----------------------------
 url_sea = 'https://apis.data.go.kr/1360000/MidFcstInfoService/getMidSeaFcst'
@@ -104,11 +121,15 @@ df_land_e = df_land_e * 0.02
 
 # 미래데이터(api)를 학습데이터 구조와 동일하게 생성
 ## avg_Temp, low_Temp, high_Temp, Rainfall, avg_WaveHeight, high_WaveHeight
-col_name = ['day','avg_WaveHeight', 'high_WaveHeight', 'avg_Temp', 'low_Temp', 'high_Temp', 'Rainfall']
+col_name = ['day','whAvg', 'whHigh', 'taAvg', 'taMin', 'taMax', 'rain']
 df_predict = pd.DataFrame(columns=col_name)
 for i in range(0,8):
-    df_predict.loc[i,'day'] = i+3
+    df_predict.loc[i,'day'] = i+3  # 예측하려는 일수
     df_predict.iloc[i,1:] = pd.concat([df_sea_e.filter(regex="{}".format(i+3)), 
-                            df_t_e.filter(regex="{}".format(i+3)), df_land_e.filter(regex="{}".format(i+3))], axis=1)
-df_predict = df_predict[['day','avg_Temp', 'low_Temp', 'high_Temp', 'Rainfall', 'avg_WaveHeight', 'high_WaveHeight']] # 컬럼 순서변경
-df_predict = df_predict.set_index('day') 
+                            df_t_e.filter(regex="{}".format(i+3)), 
+                            df_land_e.filter(regex="{}".format(i+3))], 
+                            axis=1)
+df_predict = df_predict[['day','taAvg', 'taMin', 'taMax', 'rain', 'whAvg', 'whHigh']] # 컬럼 순서변경
+df_predict = df_predict.set_index('day')
+
+print(df_predict)

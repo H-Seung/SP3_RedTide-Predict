@@ -18,7 +18,7 @@
         </form>
     </center>
     <br> 
-    <h3>금일 기준 3 ~ 10일 후의 기상 및 해양예보 데이터</h3><br>
+    <h3>금일 기준 3 ~ 10일 후의 기상 및 해양 예보 데이터</h3><br>
     {% for table in df_predict %}
         {{titles[loop.index]}}
         {{ table|safe }}
