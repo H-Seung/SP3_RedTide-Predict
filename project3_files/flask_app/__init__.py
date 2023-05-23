@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 import pickle
 from datetime import datetime
 import numpy as np
+import pandas as pd
 from flask_app import api_get
 
 thres = 0.74
@@ -50,6 +51,25 @@ def get_percentiles(proba, thres=thres):
 # 예보데이터 pred_prob 을 이용해 0일 확률, 1일 확률 계산
 for i, row in result.iterrows():
     result.at[i, 'result_prob'] = get_percentiles(row['pred_prob'])
+
+
+
+# # (API 없이) 임의 데이터로 test 하기 위한 코드
+# test1 = pd.DataFrame(
+#     [[22.8,20.6,25,10.2,0.3,0.88],
+#     [23,20,30,10,0.6,1],
+#      [26,24,29,1,0.9,1.5],
+#      [26,24,30,20,0.8,1.8],
+#      [30,26,33,2,1.5,2],
+#      [15,12,19,1,1.5,2]],
+#     columns=['taAvg', 'taMin', 'taMax', 'rain', 'whAvg', 'whHigh']
+# )
+
+# test1['pred_prob'] = model.predict_proba(test1)[:,-1]
+# test1['pred_result'] = np.where(test1['pred_prob'] < thres, 0, 1)
+
+# for i, row in test1.iterrows():
+#     test1.at[i, 'result_prob'] = get_percentiles(row['pred_prob'])
 
 
 
