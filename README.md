@@ -40,7 +40,11 @@
 - 기상청 등 공공데이터와 API를 활용하여 랜덤포레스트로 적조현상 발생여부 예측
 
 ## 프로젝트 절차
-![image](https://github.com/H-Seung/SP3_RedTide-Predict/assets/114974542/b11a0af4-9e85-4ba8-a63f-9f3e5971aac0)
+![ppt-프로젝트절차](https://github.com/H-Seung/SP3_RedTide-Predict/assets/114974542/5373cffa-0b6f-4256-a14b-c1f05e9ecf7e)
+
+### 데이터 정보
+![ppt-데이터정보](https://github.com/H-Seung/SP3_RedTide-Predict/assets/114974542/bb6b5d74-69d1-478c-8975-e013df9b643c)
+![ppt-데이터선택배경](https://github.com/H-Seung/SP3_RedTide-Predict/assets/114974542/767c3b4b-7a26-4ff3-b1a6-e94be8b162c5)
 
 ### 모델 훈련 및 구축
 - 모델은 로지스틱 회귀모델과 랜덤포레스트 두 모델을 테스트하여 더 높은 성능을 보이는 랜덤포레스트 모델을 사용
@@ -54,9 +58,10 @@
   AUC Score: 0.99769
   ```
 
-### MySQL 데이터 저장
+### MySQL에 데이터 저장
 - 최종 가공된 훈련데이터를 DB에 저장
-![image](https://github.com/H-Seung/SP3_RedTide-Predict/assets/114974542/59690607-0da8-4ee0-9ecf-187130edb64f)
+![mysql-trainData](https://github.com/H-Seung/SP3_RedTide-Predict/assets/114974542/bce28c83-f37e-4c62-bacc-a271d206d909)
+
 ### flask 이용한 웹페이지 구현
 - 기상청으로부터 3~10일 후의 해상,육상 날씨예보를 API로 가져와 가공후 모델 적용
 - 오늘 날짜를 기준으로 3~10 사이의 숫자를 입력하면 해당 일수 뒤의 적조 발생여부를 예측   
