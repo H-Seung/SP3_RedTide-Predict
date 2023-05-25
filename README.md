@@ -40,7 +40,7 @@
 - 기상청 등 공공데이터와 API를 활용하여 랜덤포레스트로 적조현상 발생여부 예측
 
 ## 프로젝트 절차
-![image](https://github.com/H-Seung/SP3_RedTide-Predict/assets/114974542/7de4734a-67b2-4620-ba1c-3bdb558694aa)
+![image](https://github.com/H-Seung/SP3_RedTide-Predict/assets/114974542/b11a0af4-9e85-4ba8-a63f-9f3e5971aac0)
 
 ### 모델 훈련 및 구축
 - 모델은 로지스틱 회귀모델과 랜덤포레스트 두 모델을 테스트하여 더 높은 성능을 보이는 랜덤포레스트 모델을 사용
